@@ -1,0 +1,4 @@
+multi/.vagrant
+ubuntu32/.vagrant
+ubuntu64/.vagrant
+*.log
