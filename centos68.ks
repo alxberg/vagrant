@@ -18,6 +18,7 @@ part pv.008002 --grow --size=1
 volgroup vg_centos68 --pesize=4096 pv.008002
 logvol / --fstype=ext4 --name=lv_root --vgname=vg_centos68 --grow --size=1024 --maxsize=51200
 logvol swap --name=lv_swap --vgname=vg_centos68 --grow --size=1504 --maxsize=1504
+bootloader --location=mbr --append="crashkernel=auto rhgb quiet"
 
 repo --name="CentOS"  --baseurl=http://ftp.lysator.liu.se/pub/CentOS/6.8/os/x86_64 --cost=100
 user --name=vagrant --groups=wheel --password=vagrant
