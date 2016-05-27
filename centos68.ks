@@ -1,8 +1,8 @@
 install
 text
-cdrom
+url -url http://ftp.lysator.liu.se/pub/CentOS/6.8/os/x86_64/
 lang en_US.UTF-8
-keyboard us
+keyboard sv
 network --onboot yes --device eth0 --bootproto dhcp --noipv6 --hostname centos68
 rootpw vagrant
 firewall --disabled
