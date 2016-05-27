@@ -1,8 +1,8 @@
 install
 text
-method=http://ftp.lysator.liu.se/pub/CentOS/6.8/os/x86_64/
+url --url=http://ftp.lysator.liu.se/pub/CentOS/6.8/os/x86_64
 lang en_US.UTF-8
-keyboard sv
+keyboard sv-latin1
 network --onboot yes --device eth0 --bootproto dhcp --noipv6 --hostname centos68
 rootpw vagrant
 firewall --disabled
@@ -10,13 +10,16 @@ authconfig --enableshadow --passalgo=sha512
 selinux --disabled
 timezone --utc Europe/Stockholm
 zerombr
-clearpart --all
-part /boot --fstype=ext4 --size=512
-part pv.01 --grow --size=1
-volgroup vg_vagrantcentos --pesize=4096 pv.01
-logvol swap --name=lv_swap --vgname=vg_vagrantcentos --size=1024
-logvol / --fstype=ext4 --name=lv_root --vgname=vg_vagrantcentos --grow --size=1
-bootloader --location=mbr --append="crashkernel=auto rhgb quiet"
+clearpart --all --drives=sda
+
+part /boot --fstype=ext4 --size=500
+part pv.008002 --grow --size=1
+
+volgroup vg_centos68 --pesize=4096 pv.008002
+logvol / --fstype=ext4 --name=lv_root --vgname=vg_centos68 --grow --size=1024 --maxsize=51200
+logvol swap --name=lv_swap --vgname=vg_centos68 --grow --size=1504 --maxsize=1504
+
+repo --name="CentOS"  --baseurl=http://ftp.lysator.liu.se/pub/CentOS/6.8/os/x86_64 --cost=100
 user --name=vagrant --groups=wheel --password=vagrant
 reboot
 %packages --nobase
